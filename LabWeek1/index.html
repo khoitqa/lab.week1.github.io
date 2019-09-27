@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+  <h1>Lucky Number</h1>
+  <div id="mess"></div>
+  <br>
+  <input type="number" id="mynumber">
+  <button id="submitBtn">Guess</button>
+  <br>
+  <div< id="history">
+    </div>
+
+</body>
+<script>
+  let button = document.getElementById('submitBtn')
+  let number = document.getElementById('mynumber')
+  let mess = document.getElementById('mess')
+  let history = document.getElementById('history')
+  let result = Math.round(Math.random() * 10 + 1)
+  let maxGuess = 10;
+  var historyStr = 'History : '
+  history.innerHTML = historyStr
+  console.log(result)
+
+  button.addEventListener('click', function () {
+
+    if (number.value== result) {
+      //youwin
+      mess.innerHTML = "Congratulations!! You guessed correctly"
+      mess.style.backgroundColor = "green"
+      button.disabled = true
+    } else {
+      var wrong;
+      //wrong guess
+      if (number.value > result) {
+        wrong = 'Sorry your guess is too high.'
+      } else if (number.value < result) {
+        wrong = 'Sorry your guess is too low.'
+      }
+      
+      maxGuess--
+      if(maxGuess>1){
+        wrong = wrong+' You have '+maxGuess+' guesses left'
+   
+      }else if(maxGuess==1){
+        wrong = wrong+' You have '+maxGuess+' guess left'
+      
+      }else{
+        wrong = wrong+' You lose ! '
+      }
+     
+
+      //game over
+      if(maxGuess==0){
+        button.disabled = true
+      }
+      //show result
+      mess.style.backgroundColor = "red"
+      mess.innerHTML=wrong
+
+    }
+
+    historyStr = historyStr + number.value + ', '
+    history.innerHTML = historyStr.substr(0, historyStr.length - 2)
+
+  });
+</script>
+
+</html>
